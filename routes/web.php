@@ -19,4 +19,11 @@ Route::post('/auth', [AdminController::class, 'auth'])->name('admin.auth');
 
 Route::middleware(['admin_auth'])->group(function () {
     Route::get('home', [AdminController::class, 'home'])->name('admin.home');
+    Route::get('logout', [AdminController::class, 'logout'])->name('admin.logout');
+    Route::get('profile', [AdminController::class, 'profile'])->name('admin.profile');
+
+
+    Route::get('classes', [AdminController::class, 'classes'])->name('classes');
+    Route::post('classes-new', [AdminController::class, 'classes_new'])->name('classes.new');
+    Route::post('classes-users/{id?}', [AdminController::class, 'class_users'])->name('classes.users');
 });

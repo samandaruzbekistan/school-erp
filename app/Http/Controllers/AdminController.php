@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LoginRequest;
 use App\Repositories\AdminRepository;
+use App\Repositories\ClassesRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
-    public function __construct(protected AdminRepository $adminRepository)
+    public function __construct(
+        protected AdminRepository $adminRepository,
+        protected ClassesRepository $classesRepository,
+        protected UserRepository $userRepository,
+    )
     {
     }
 
@@ -53,5 +58,30 @@ class AdminController extends Controller
     public function logout(){
         session()->flush();
         return redirect()->route('admin.login');
+    }
+
+    public function home(){
+        return view('admin.home');
+    }
+
+    public function classes(){
+        $cl = $this->classesRepository->all_classes();
+        return view('admin.classes', ['classes' => $cl]);
+    }
+
+    public function classes_new(Request $request){
+        $request->validate([
+            'name' => 'required|string',
+            'level' => 'required|numeric',
+        ]);
+        $cl = $this->classesRepository->get_class_by_name($request->name);
+        if($cl) return redirect()->back();
+        $this->classesRepository->add_class($request->name, $request->level);
+        return redirect()->back()->with('success',1);
+    }
+
+    public function class_users($id){
+        $users = $this->userRepository->get_users_by_class_id($id);
+        return view('admin.users', ['users' => $users]);
     }
 }
