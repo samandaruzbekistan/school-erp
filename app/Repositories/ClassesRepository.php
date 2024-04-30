@@ -16,6 +16,11 @@ class ClassesRepository
         return $classes;
     }
 
+    public function get_class_by_id($id){
+        $classes = Classes::find($id)->first();
+        return $classes;
+    }
+
     public function add_class($name, $level){
         $cl = new Classes;
         $cl->level = $level;

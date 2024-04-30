@@ -81,7 +81,9 @@ class AdminController extends Controller
     }
 
     public function class_users($id){
+        $cl = $this->classesRepository->get_class_by_id($id);
+        $classes = $this->classesRepository->all_classes();
         $users = $this->userRepository->get_users_by_class_id($id);
-        return view('admin.users', ['users' => $users]);
+        return view('admin.users', ['users' => $users, 'current_class' => $cl, 'classes' => $classes]);
     }
 }

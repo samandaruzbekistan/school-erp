@@ -25,5 +25,5 @@ Route::middleware(['admin_auth'])->group(function () {
 
     Route::get('classes', [AdminController::class, 'classes'])->name('classes');
     Route::post('classes-new', [AdminController::class, 'classes_new'])->name('classes.new');
-    Route::post('classes-users/{id?}', [AdminController::class, 'class_users'])->name('classes.users');
+    Route::get('classes-users/{id?}', [AdminController::class, 'class_users'])->name('classes.users');
 });
