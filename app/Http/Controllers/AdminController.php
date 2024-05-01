@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Repositories\AdminRepository;
 use App\Repositories\ClassesRepository;
 use App\Repositories\DistrictRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
@@ -89,6 +91,58 @@ class AdminController extends Controller
         return view('admin.users', ['users' => $users, 'current_class' => $cl, 'classes' => $classes]);
     }
 
+
+//    User control
+    public function add_user(Request $request){
+//        return $request;
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'birthday' => 'required|date',
+//            'photo' => 'required|image|mimes:jpeg,png,jpg,gif',
+            'passport' => 'required|string',
+            'father_name' => 'required|string',
+            'mother_name' => 'required|string',
+            'parents_passport' => 'required|string',
+            'father_phone' => 'required|string',
+            'mother_phone' => 'required|string',
+            'region_id' => 'required|numeric',
+            'district_id' => 'required|numeric',
+            'quarter_id' => 'required|numeric',
+            'address' => 'required|string',
+        ]);
+        $photo_name = "no_photo";
+        if ($request->hasFile('photo')){
+            $file = $request->file('photo')->extension();
+            $name = md5(microtime());
+            $photo_name = $name.".".$file;
+            $path = $request->file('photo')->move('img/users/',$photo_name);
+        }
+        if (!empty($request->mahalla)){
+            $quarter_id = DB::table('quarters')->insertGetId([
+                'district_id' => $request->district_id,
+                'name' => $request->mahalla
+            ]);
+        }
+        else{
+            $quarter_id = $request->quarter_id;
+        }
+        $user = new User;
+        $user->name = $request->name;
+        $user->birthday = $request->birthday;
+        $user->photo = $photo_name;
+        $user->passport = $request->passport;
+        $user->father_name = $request->father_name;
+        $user->mother_name = $request->mother_name;
+        $user->parents_passport = $request->parents_passport;
+        $user->parents_number1 = $request->father_phone;
+        $user->parents_number2 = $request->mother_phone;
+        $user->region_id = $request->region_id;
+        $user->district_id = $request->district_id;
+        $user->quarter_id = $quarter_id;
+        $user->address = $request->address;
+        $user->save();
+        return back()->with('success',1);
+    }
 
 
 

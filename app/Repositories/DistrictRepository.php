@@ -8,10 +8,10 @@ use App\Models\Quarter;
 class DistrictRepository
 {
     public function districts($id){
-        return District::where('region_id', $id)->get();
+        return District::where('region_id', $id)->orderBy('name')->get();
     }
 
     public function quarters($id){
-        return Quarter::where('district_id', $id)->get();
+        return Quarter::where('district_id', $id)->orderBy('name')->get();
     }
 }

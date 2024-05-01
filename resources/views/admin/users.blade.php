@@ -62,7 +62,7 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <label class="form-label">Tug'ilgan sana <span class="text-danger">*</span></label>
-                                        <input name="date" required type="date"  class="form-control" placeholder="">
+                                        <input name="birthday" required type="date"  class="form-control" placeholder="">
                                     </div>
                                     <div class="col-lg-4">
                                         <label class="form-label">Rasmi <span class="text-danger">*</span></label>
@@ -143,7 +143,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class=" text-end">
+                                <div class="row mb-2">
+                                    <div class="col-lg-12">
+                                        <label for="district" class="form-label">Ko'cha, uy raqami</label> <sup class="text-danger">*</sup>
+                                        <input type="text" required name="address" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="text-end">
                                     <button type="button" class="btn btn-danger cancel">Bekor qilish</button>
                                     <button type="submit" class="btn btn-success">Qo'shish</button>
                                 </div>
@@ -256,7 +262,7 @@
         @foreach ($errors->all() as $error)
         notyf.error({
             message: '{{ $error }}',
-            duration: 5000,
+            duration: 10000,
             dismissible: true,
             position: {
                 x: 'center',
