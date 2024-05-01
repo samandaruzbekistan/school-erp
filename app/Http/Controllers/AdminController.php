@@ -92,6 +92,24 @@ class AdminController extends Controller
     }
 
 
+
+    public function applicants(){
+        $users = $this->userRepository->get_applicants();
+        return view('admin.applicants', ['users' => $users]);
+    }
+
+    public function user($id){
+        $user = $this->userRepository->get_user_by_id($id);
+        return view('admin.student', ['student' => $user]);
+    }
+
+    public function delete_user($id){
+        $user = $this->userRepository->get_user_by_id($id);
+        if ($user->photo != "no_photo") unlink('img/users/'.$user->photo);
+        $this->userRepository->delete_user($id);
+        return back();
+    }
+
 //    User control
     public function add_user(Request $request){
 //        return $request;
