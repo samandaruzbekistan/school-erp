@@ -21,4 +21,10 @@ class UserRepository
     public function delete_user($id){
         User::where('id', $id)->delete();
     }
+
+    public function update_class_id($user_id, $class_id){
+        User::where('id', $user_id)->update([
+            'class_id' => $class_id
+        ]);
+    }
 }

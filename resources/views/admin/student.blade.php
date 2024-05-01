@@ -148,18 +148,57 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="sms" role="tabpanel">
-                            <div class="card col-8">
+                            <div class="card col-12">
                                 <div class="card-header">
-                                    <h5 class="card-title mb-0 col"><b class="text-primary">{{ $student->name }}</b> ga
-                                        sms yuborish</h5>
+                                    <h5 class="card-title mb-0 col"><b class="text-primary">{{ $student->name }}</b> ni sinfga qabul qilish</h5>
                                 </div>
                                 <div class="card-body">
-                                    <form action="" method="post">
+                                    <form action="{{ route('action') }}" method="post" enctype="multipart/form-data">
                                         @csrf
-                                        <input type="hidden" name="number" value="{{ $student->phone }}">
-                                        <div class="mb-3">
-                                            <label class="form-label">SMS matni</label>
-                                            <textarea class="form-control" rows="3" required name="message"></textarea>
+                                        <input type="hidden" name="user_id" value="{{ $student->id }}">
+                                        <input type="hidden" name="type_id" value="1">
+                                        <div class="row mb-3">
+                                            <div class="mb-3 col-sm-4 col-4">
+                                                <label for="class_id" class="form-label">Sinfni tanlang</label> <sup class="text-danger">*</sup>
+                                                <select id="class_id" required="" class="form-select" name="class_id">
+                                                    <option disabled="" selected="" hidden>Tanlang</option>
+                                                    @foreach($classes as $cl)
+                                                        <option value="{{ $cl->id }}">{{ $cl->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <label class="form-label">Buyruq sana <span class="text-danger">*</span></label>
+                                                <input name="date" required type="date"  class="form-control" placeholder="">
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <label class="form-label">Buyruq PDF<span class="text-danger">*</span></label>
+                                                <input name="document" required type="file"  class="form-control" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="mb-3 col-sm-4 col-4">
+                                                <label for="class_id" class="form-label">Buyruq raqami</label> <sup class="text-danger">*</sup>
+                                                <input name="document_number" required type="text"  class="form-control" placeholder="">
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <label class="form-label">Kelgan maktab <span class="text-danger">*</span></label>
+                                                <input name="school" required type="text"  class="form-control" placeholder="">
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <label class="form-label">Kelgan maktab manzili <span class="text-danger">*</span></label>
+                                                <input name="school_address" required type="text"  class="form-control" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="mb-3 col-sm-4 col-4">
+                                                <label for="class_id" class="form-label">Kelgan davlati</label> <sup class="text-danger">*</sup>
+                                                <input name="country" required type="text"  class="form-control" placeholder="">
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <label class="form-label">Izox <span class="text-danger">*</span></label>
+                                                <input name="comment" required type="text"  class="form-control" placeholder="">
+                                            </div>
                                         </div>
                                         <div class=" text-end">
                                             <button type="submit" class="btn btn-success">Xabar yuborish</button>
@@ -313,11 +352,11 @@
         const notyf = new Notyf();
 
         notyf.success({
-            message: 'Yangi o\'quvchi qo\'shildi!',
-            duration: 5000,
+            message: 'Amal bajarildi!',
+            duration: 10000,
             dismissible: true,
             position: {
-                x: 'center',
+                x: 'right',
                 y: 'top'
             },
         });

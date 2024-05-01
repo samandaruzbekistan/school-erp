@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Action;
 use App\Models\User;
+use App\Repositories\ActionRepository;
 use App\Repositories\AdminRepository;
 use App\Repositories\ClassesRepository;
 use App\Repositories\DistrictRepository;
@@ -18,6 +20,7 @@ class AdminController extends Controller
         protected ClassesRepository $classesRepository,
         protected UserRepository $userRepository,
         protected DistrictRepository $districtRepository,
+        protected ActionRepository $actionRepository,
     )
     {
     }
@@ -100,7 +103,41 @@ class AdminController extends Controller
 
     public function user($id){
         $user = $this->userRepository->get_user_by_id($id);
-        return view('admin.student', ['student' => $user]);
+        $cl = $this->classesRepository->all_classes();
+        return view('admin.student', ['student' => $user, 'classes' => $cl]);
+    }
+
+    public function action(Request $request){
+        $request->validate([
+            'user_id' => "required|numeric",
+            'class_id' => "required|numeric",
+            'type_id' => "required|numeric",
+            'school' => "required|string",
+            'school_address' => "required|string",
+            'country' => "required|string",
+//            'document' => "required|file",
+            'document_number' => "required|string",
+            'date' => "required|date",
+            'comment' => "required|string",
+        ]);
+        $file = $request->file('document')->extension();
+        $name = md5(microtime());
+        $document_name = $name.".".$file;
+        $path = $request->file('document')->move('img/documents/',$document_name);
+        $action = new Action;
+        $action->user_id = $request->user_id;
+        $action->type_id = $request->type_id;
+        $action->date = $request->date;
+        $action->class_id = $request->class_id;
+        $action->document = $document_name;
+        $action->document_number = $request->document_number;
+        $action->school = $request->school;
+        $action->school_address = $request->school_address;
+        $action->country = $request->country;
+        $action->comment = $request->comment;
+        $action->save();
+        $this->userRepository->update_class_id($request->user_id, $request->class_id);
+        return redirect()->back()->with('success', 1);
     }
 
     public function delete_user($id){
