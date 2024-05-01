@@ -83,7 +83,8 @@
                                                 <a href="#">{{ $student->passport }}</a></li>
                                             <li class="mb-1">
                                                 <i class="align-middle me-1" data-feather="map-pin"></i>Manzil:
-                                                <a href="#">{{ $student->region->name }} {{ $student->district->name }} {{ $student->quarter->name }} {{ $student->address }}</a></li>
+                                                <a href="#">{{ $student->region->name }} {{ $student->district->name }} {{ $student->quarter->name }} {{ $student->address }}</a>
+                                            </li>
                                         </ul>
                                     </div>
                                     <hr class="my-0">
@@ -119,38 +120,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="payments" role="tabpanel">
-                            <div class="card col-8">
-                                <div class="card-header">
-                                    <div class="row justify-content-between">
-                                        <h5 class="card-title mb-0 col">To'lovlar malumotlari</h5>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table table-striped">
-                                        <thead>
-                                        <tr>
-                                            <th>O'quv oyi</th>
-                                            <th>Summa</th>
-                                            <th>Sana</th>
-                                            <th>Izox</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody class="old-data">
 
-                                        </tbody>
-                                        <tbody class="new-data" style="display: none">
-
-                                        </tbody>
-                                    </table>
-
-                                </div>
-                            </div>
-                        </div>
                         <div class="tab-pane fade" id="sms" role="tabpanel">
                             <div class="card col-12">
                                 <div class="card-header">
-                                    <h5 class="card-title mb-0 col"><b class="text-primary">{{ $student->name }}</b> ni sinfga qabul qilish</h5>
+                                    <h5 class="card-title mb-0 col"><b class="text-primary">{{ $student->name }}</b> ni
+                                        sinfga qabul qilish</h5>
                                 </div>
                                 <div class="card-body">
                                     <form action="{{ route('action') }}" method="post" enctype="multipart/form-data">
@@ -159,7 +134,8 @@
                                         <input type="hidden" name="type_id" value="1">
                                         <div class="row mb-3">
                                             <div class="mb-3 col-sm-4 col-4">
-                                                <label for="class_id" class="form-label">Sinfni tanlang</label> <sup class="text-danger">*</sup>
+                                                <label for="class_id" class="form-label">Sinfni tanlang</label> <sup
+                                                    class="text-danger">*</sup>
                                                 <select id="class_id" required="" class="form-select" name="class_id">
                                                     <option disabled="" selected="" hidden>Tanlang</option>
                                                     @foreach($classes as $cl)
@@ -169,35 +145,48 @@
                                             </div>
                                             <div class="col-lg-4">
                                                 <label class="form-label">Buyruq sana <span class="text-danger">*</span></label>
-                                                <input name="date" required type="date"  class="form-control" placeholder="">
+                                                <input name="date" required type="date" class="form-control"
+                                                       placeholder="">
                                             </div>
                                             <div class="col-lg-4">
-                                                <label class="form-label">Buyruq PDF<span class="text-danger">*</span></label>
-                                                <input name="document" required type="file"  class="form-control" placeholder="">
+                                                <label class="form-label">Buyruq PDF<span
+                                                        class="text-danger">*</span></label>
+                                                <input name="document" required type="file" class="form-control"
+                                                       placeholder="">
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <div class="mb-3 col-sm-4 col-4">
-                                                <label for="class_id" class="form-label">Buyruq raqami</label> <sup class="text-danger">*</sup>
-                                                <input name="document_number" required type="text"  class="form-control" placeholder="">
+                                                <label for="class_id" class="form-label">Buyruq raqami</label> <sup
+                                                    class="text-danger">*</sup>
+                                                <input name="document_number" required type="text" class="form-control"
+                                                       placeholder="">
                                             </div>
                                             <div class="col-lg-4">
-                                                <label class="form-label">Kelgan maktab <span class="text-danger">*</span></label>
-                                                <input name="school" required type="text"  class="form-control" placeholder="">
+                                                <label class="form-label">Kelgan maktab <span
+                                                        class="text-danger">*</span></label>
+                                                <input name="school" required type="text" class="form-control"
+                                                       placeholder="">
                                             </div>
                                             <div class="col-lg-4">
-                                                <label class="form-label">Kelgan maktab manzili <span class="text-danger">*</span></label>
-                                                <input name="school_address" required type="text"  class="form-control" placeholder="">
+                                                <label class="form-label">Kelgan maktab manzili <span
+                                                        class="text-danger">*</span></label>
+                                                <input name="school_address" required type="text" class="form-control"
+                                                       placeholder="">
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <div class="mb-3 col-sm-4 col-4">
-                                                <label for="class_id" class="form-label">Kelgan davlati</label> <sup class="text-danger">*</sup>
-                                                <input name="country" required type="text"  class="form-control" placeholder="">
+                                                <label for="class_id" class="form-label">Kelgan davlati</label> <sup
+                                                    class="text-danger">*</sup>
+                                                <input name="country" required type="text" class="form-control"
+                                                       placeholder="">
                                             </div>
                                             <div class="col-lg-8">
-                                                <label class="form-label">Izox <span class="text-danger">*</span></label>
-                                                <input name="comment" required type="text"  class="form-control" placeholder="">
+                                                <label class="form-label">Izox <span
+                                                        class="text-danger">*</span></label>
+                                                <input name="comment" required type="text" class="form-control"
+                                                       placeholder="">
                                             </div>
                                         </div>
                                         <div class=" text-end">
@@ -211,7 +200,53 @@
                 </div>
 
             </div>
+            <div class="tab-pane fade" id="payments" role="tabpanel">
+                <div class="card col-12">
+                    <div class="card-header">
+                        <div class="row justify-content-between">
+                            <h5 class="card-title mb-0 col">Amallar tarixi</h5>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Jarayon</th>
+                                <th>Sinf</th>
+                                <th>Buyruq raqami</th>
+                                <th>Sana</th>
+                                <th>Kelgan maktabi</th>
+                                <th>Kelgan maktab manzili</th>
+                                <th>Izox</th>
+                                <th>Buyruq</th>
+                            </tr>
+                            </thead>
+                            <tbody class="old-data">
+                            @foreach($actions as $action)
+                                <th class="text-success">{{ $action->actionType->name }}</th>
+                                <th>{{ $action->class->name }}</th>
+                                <th>{{ $action->document_number }}</th>
+                                <th>{{ $action->date }}</th>
+                                <th>{{ $action->school }}</th>
+                                <th>{{ $action->school_address }}</th>
+                                <th>{{ $action->comment }}</th>
+                                <th><a href="{{ route('getDownload', ['doc' => $action->document]) }}" class="btn btn-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                             stroke-linecap="round" stroke-linejoin="round"
+                                             class="feather feather-download align-middle ">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                            <polyline points="7 10 12 15 17 10"></polyline>
+                                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                                        </svg>
+                                    </a></th>
+                            @endforeach
+                            </tbody>
+                        </table>
 
+                    </div>
+                </div>
+            </div>
             <div class="col-12 col-xl-4 d-none">
                 <div class="card">
                     <div class="card-header">

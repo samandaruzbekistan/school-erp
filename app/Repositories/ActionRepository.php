@@ -20,4 +20,8 @@ class ActionRepository
         $action->comment = $comment;
         $action->save();
     }
+
+    public function get_all_actions($user_id){
+        return Action::where('user_id', $user_id)->get();
+    }
 }

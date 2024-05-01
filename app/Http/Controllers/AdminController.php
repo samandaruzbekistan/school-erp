@@ -89,9 +89,20 @@ class AdminController extends Controller
 
     public function class_users($id){
         $cl = $this->classesRepository->get_class_by_id($id);
-        $classes = $this->classesRepository->all_classes();
         $users = $this->userRepository->get_users_by_class_id($id);
-        return view('admin.users', ['users' => $users, 'current_class' => $cl, 'classes' => $classes]);
+        return view('admin.users', ['users' => $users, 'current_class' => $cl]);
+    }
+
+    public function getDownload($doc)
+    {
+        //PDF file is stored under project/public/download/info.pdf
+        $file= public_path(). "/img/documents/".$doc;
+
+        $headers = array(
+            'Content-Type: application/pdf',
+        );
+
+        return response()->download($file, 'buyruq.pdf', $headers);
     }
 
 
@@ -104,7 +115,8 @@ class AdminController extends Controller
     public function user($id){
         $user = $this->userRepository->get_user_by_id($id);
         $cl = $this->classesRepository->all_classes();
-        return view('admin.student', ['student' => $user, 'classes' => $cl]);
+        $ac = $this->actionRepository->get_all_actions($id);
+        return view('admin.student', ['student' => $user, 'classes' => $cl, 'actions' => $ac]);
     }
 
     public function action(Request $request){

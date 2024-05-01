@@ -42,132 +42,12 @@
 @endsection
 @section('section')
 
-
-
-    <main class="content forma" style="padding-bottom: 0; display: none">
-        <div class="container-fluid p-0">
-            <div class="col-md-8 col-xl-9">
-                <div class="">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title mb-0">Yangi o'quvchi qo'shish</h5>
-                        </div>
-                        <div class="card-body h-100">
-                            <form action="{{ route('user.add') }}" method="post">
-                                @csrf
-                                <div class="row mb-3">
-                                    <div class="col-lg-4">
-                                        <label class="form-label">F.I.Sh <span class="text-danger">*</span></label>
-                                        <input name="name" required type="text" class="form-control" placeholder="">
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <label class="form-label">Tug'ilgan sana <span class="text-danger">*</span></label>
-                                        <input name="birthday" required type="date"  class="form-control" placeholder="">
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <label class="form-label">Rasmi <span class="text-danger">*</span></label>
-                                        <input name="photo" required type="file"  class="form-control" placeholder="">
-                                    </div>
-                                </div>
-                                <div class="row  mb-3">
-                                    <div class="col-lg-4">
-                                        <label for="district" class="form-label">Passport (Guvohnoma)</label> <sup class="text-danger">*</sup>
-                                        <input type="text" required name="passport" class="form-control">
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <label for="district" class="form-label">Otasi F.I.SH</label> <sup class="text-danger">*</sup>
-                                        <input type="text" required name="father_name" class="form-control">
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <label for="district" class="form-label">Onasi F.I.SH</label> <sup class="text-danger">*</sup>
-                                        <input type="text" required name="mother_name" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <label for="district" class="form-label">Ota-ona Passport</label> <sup class="text-danger">*</sup>
-                                        <input type="text" required name="parents_passport" class="form-control">
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <label class="form-label">Ota telefoni<span class="text-danger">*</span></label>
-                                        <div class="input-group mb-3 col-6">
-                                            <span class="input-group-text">+998</span>
-                                            <input type="number" required name="father_phone" maxlength="9" class="form-control">
-                                        </div>
-                                    </div><div class="col-lg-4">
-                                        <label class="form-label">Ona telefoni<span class="text-danger">*</span></label>
-                                        <div class="input-group mb-3 col-6">
-                                            <span class="input-group-text">+998</span>
-                                            <input type="number" required name="mother_phone" maxlength="9" class="form-control">
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="row">
-                                    <div class="mb-3 col-sm-4 col-4">
-                                        <label for="region" class="form-label">Viloyat</label> <sup class="text-danger">*</sup>
-                                        <select id="region" required="" class="form-select" name="region_id">
-                                            <option disabled="" selected="" hidden>Tanlang</option>
-                                            <option value="2">Andijon viloyati</option>
-                                            <option value="3">Buxoro viloyati</option>
-                                            <option value="12">Farg‘ona viloyati</option>
-                                            <option value="4">Jizzax viloyati</option>
-                                            <option value="7">Namangan viloyati</option>
-                                            <option value="6">Navoiy viloyati</option>
-                                            <option value="5">Qashqadaryo viloyati</option>
-                                            <option value="1">Qoraqalpog‘iston Respublikasi</option>
-                                            <option value="8">Samarqand viloyati</option>
-                                            <option value="10">Sirdaryo viloyati</option>
-                                            <option value="9">Surxandaryo viloyati</option>
-                                            <option value="14">Toshkent shahri</option>
-                                            <option value="11">Toshkent viloyati</option>
-                                            <option value="13">Xorazm viloyati</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3 col-sm-4 col-4">
-                                        <label for="district" class="form-label">Tuman</label> <sup class="text-danger">*</sup>
-                                        <select id="district" name="district_id" required class="form-select">
-                                            <option disabled="" selected="" hidden>Tanlang</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3 col-sm-4 col-4">
-                                        <div class="form-check form-switch mb-2" style="display: inline-block">
-                                            <input class="form-check-input" type="checkbox" role="switch" id="is_uzbekistan">
-                                            <label class="form-check-label" for="is_uzbekistan">Mahalla topilmadi</label>
-                                        </div>
-                                        <select id="quarter" name="quarter_id" class="form-select">
-                                            <option disabled="" selected="" hidden>Tanlang</option>
-                                        </select>
-                                        <div class="" id="mahalla-input" style="display:none;">
-                                            <input type="text" name="mahalla" class="form-control" placeholder="Mahalla nomi">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-2">
-                                    <div class="col-lg-12">
-                                        <label for="district" class="form-label">Ko'cha, uy raqami</label> <sup class="text-danger">*</sup>
-                                        <input type="text" required name="address" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="text-end">
-                                    <button type="button" class="btn btn-danger cancel">Bekor qilish</button>
-                                    <button type="submit" class="btn btn-success">Qo'shish</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
     <main class="content teachers">
         <div class="container-fluid p-0">
             <div class="col-12 col-xl-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
-                        <h5 class="card-title mb-0">O'quvchilar ro'yhati</h5>
-                        <button class="btn btn-primary add ms-2">+ Yangi o'quvchi</button>
+                        <h5 class="card-title mb-0"><span class="text-danger">{{ $current_class->name }}</span> sinf o'quvchilari</h5>
                     </div>
                     <table class="table table-striped table-hover table-responsive">
                         <thead>
@@ -184,7 +64,7 @@
                                 <td>
                                     {{ $id+1 }}
                                 </td>
-                                <td><a href="{{ route('cashier.student') }}/{{ $student->id }}">{{ $student->name }}</a></td>
+                                <td><a href="{{ route('user', ['id' => $student->id]) }}">{{ $student->name }}</a></td>
                                 <td class="d-none d-sm-table-cell">{{ $student->phone }}</td>
                                 <td class="d-none d-sm-table-cell">{{ $student->class->name }}</td>
                                 {{--                                <td style="cursor: pointer"><a href="{{ route('cashier.add_to_subject') }}/{{ $student->id }}" class="btn btn-success add-student"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus align-middle"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg></a></td>--}}
