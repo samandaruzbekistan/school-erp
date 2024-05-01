@@ -26,4 +26,11 @@ Route::middleware(['admin_auth'])->group(function () {
     Route::get('classes', [AdminController::class, 'classes'])->name('classes');
     Route::post('classes-new', [AdminController::class, 'classes_new'])->name('classes.new');
     Route::get('classes-users/{id?}', [AdminController::class, 'class_users'])->name('classes.users');
+
+//    Users control
+    Route::post('new-student', [AdminController::class, 'add_user'])->name('user.add');
+
+//  Region control
+    Route::get('districts/{region_id?}', [AdminController::class,'districts'])->name('cashier.district.regionID');
+    Route::get('quarters/{district_id?}', [AdminController::class,'quarters'])->name('cashier.quarter.districtID');
 });

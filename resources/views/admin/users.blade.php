@@ -53,39 +53,55 @@
                             <h5 class="card-title mb-0">Yangi o'quvchi qo'shish</h5>
                         </div>
                         <div class="card-body h-100">
-                            <form action="" method="post">
+                            <form action="{{ route('user.add') }}" method="post">
                                 @csrf
                                 <div class="row mb-3">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
                                         <label class="form-label">F.I.Sh <span class="text-danger">*</span></label>
                                         <input name="name" required type="text" class="form-control" placeholder="">
                                     </div>
-                                    <div class="col-lg-6">
-                                        <label class="form-label">Kelgan sana <span class="text-danger">*</span></label>
-                                        <input name="date" required type="date" value="{{ date('Y-m-d') }}"  class="form-control" placeholder="">
+                                    <div class="col-lg-4">
+                                        <label class="form-label">Tug'ilgan sana <span class="text-danger">*</span></label>
+                                        <input name="date" required type="date"  class="form-control" placeholder="">
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label class="form-label">Rasmi <span class="text-danger">*</span></label>
+                                        <input name="photo" required type="file"  class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="row  mb-3">
+                                    <div class="col-lg-4">
+                                        <label for="district" class="form-label">Passport (Guvohnoma)</label> <sup class="text-danger">*</sup>
+                                        <input type="text" required name="passport" class="form-control">
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label for="district" class="form-label">Otasi F.I.SH</label> <sup class="text-danger">*</sup>
+                                        <input type="text" required name="father_name" class="form-control">
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label for="district" class="form-label">Onasi F.I.SH</label> <sup class="text-danger">*</sup>
+                                        <input type="text" required name="mother_name" class="form-control">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-4">
-                                        <label for="district" class="form-label">Sinf</label> <sup class="text-danger">*</sup>
-                                        <select  name="class_id" required class="form-select">
-                                            <option disabled="" selected="" hidden>Tanlang</option>
-                                            @foreach($classes as $class)
-                                                <option value="{{ $class->id }}">{{ $class->name }}</option>
-                                            @endforeach
-                                        </select>
+                                        <label for="district" class="form-label">Ota-ona Passport</label> <sup class="text-danger">*</sup>
+                                        <input type="text" required name="parents_passport" class="form-control">
                                     </div>
                                     <div class="col-lg-4">
-                                        <label class="form-label">Oylik to'lov<span class="text-danger">*</span></label>
-                                        <input type="text" oninput="formatPaymentAmount(this)" required name="amount" class="form-control">
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <label class="form-label">Ota-ona telefoni<span class="text-danger">*</span></label>
+                                        <label class="form-label">Ota telefoni<span class="text-danger">*</span></label>
                                         <div class="input-group mb-3 col-6">
                                             <span class="input-group-text">+998</span>
-                                            <input type="number" required name="phone" maxlength="9" class="form-control">
+                                            <input type="number" required name="father_phone" maxlength="9" class="form-control">
+                                        </div>
+                                    </div><div class="col-lg-4">
+                                        <label class="form-label">Ona telefoni<span class="text-danger">*</span></label>
+                                        <div class="input-group mb-3 col-6">
+                                            <span class="input-group-text">+998</span>
+                                            <input type="number" required name="mother_phone" maxlength="9" class="form-control">
                                         </div>
                                     </div>
+
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-sm-4 col-4">
@@ -179,7 +195,60 @@
 
 @section('js')
     <script>
+        $(document).on('change', '#region', function() {
+            let selectedId = $(this).val();
+            let firstOption = $('#district option:first');
 
+            $("#district").empty();
+            $('#district').append('<option value="" disabled selected hidden>Tanlash...</option>');
+            $.ajax({
+                url: '{{ route('cashier.district.regionID') }}/' + selectedId,
+                method: 'GET',
+                success: function(data) {
+                    $("#district").empty();
+                    $('#district').append('<option value="" disabled selected hidden>Tanlash...</option>');
+                    $.each(data, function(key, value){
+                        $('#district').append('<option value="' + value.id+ '">' + value.name + '</option>');
+                    });
+                }
+            });
+        });
+
+        $(document).on('change', '#district', function() {
+            let selectedId = $(this).val();
+            let firstOption = $('#quarter option:first');
+
+            $("#quarter").empty();
+            $('#quarter').append('<option value="" disabled selected hidden>Tanlash...</option>');
+            $.ajax({
+                url: '{{ route('cashier.quarter.districtID') }}/' + selectedId,
+                method: 'GET',
+                success: function(data) {
+                    $("#quarter").empty();
+                    $('#quarter').append('<option value="" disabled selected hidden>Tanlash...</option>');
+                    $.each(data, function(key, value){
+                        $('#quarter').append('<option value="' + value.id+ '">' + value.name + '</option>');
+                    });
+                }
+            });
+        });
+
+
+        $(document).on('click', '.new-student', function () {
+            $('.add-student').show();
+            $('.teachers').hide();
+        });
+
+        function formatPaymentAmount(input) {
+            // Remove existing non-numeric characters
+            const numericValue = input.value.replace(/\D/g, '');
+
+            // Add thousand separators
+            const formattedValue = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+
+            // Update the input field with the formatted value
+            input.value = formattedValue;
+        }
 
         @if($errors->any())
         const notyf = new Notyf();

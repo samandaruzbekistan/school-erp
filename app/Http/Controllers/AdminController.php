@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\AdminRepository;
 use App\Repositories\ClassesRepository;
+use App\Repositories\DistrictRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -14,6 +15,7 @@ class AdminController extends Controller
         protected AdminRepository $adminRepository,
         protected ClassesRepository $classesRepository,
         protected UserRepository $userRepository,
+        protected DistrictRepository $districtRepository,
     )
     {
     }
@@ -85,5 +87,25 @@ class AdminController extends Controller
         $classes = $this->classesRepository->all_classes();
         $users = $this->userRepository->get_users_by_class_id($id);
         return view('admin.users', ['users' => $users, 'current_class' => $cl, 'classes' => $classes]);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    //    Region control
+    public function districts($region_id){
+        return $this->districtRepository->districts($region_id);
+    }
+
+    public function quarters($district_id){
+        return $this->districtRepository->quarters($district_id);
     }
 }
